@@ -1,0 +1,21 @@
+
+{
+  "apps": [
+    {
+      "id": "workflow-simulator",
+      "name": "Workflow Simulator",
+      "description": "Mô phỏng quy trình làm việc với AI, n8n và các node nhân sự.",
+      "category": "Tự động hóa",
+      "status": "development",
+      "version": "0.1.0",
+      "icon": "🔀",
+      "url": "apps/workflow-simulator/",
+      "keywords": [
+        "AI",
+        "n8n",
+        "workflow",
+        "simulation"
+      ]
+    }
+  ]
+}
