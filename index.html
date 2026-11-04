@@ -5,81 +5,452 @@
 <meta charset="UTF-8">
 <meta name="viewport"
       content="width=device-width, initial-scale=1">
-<title>Just Some Fun - App Library</title>
+
+<title>Just Some Fun | App Library</title>
+
 <style>
+  :root {
+    --navy: #142940;
+    --blue: #2276b8;
+    --bg: #f3f6fa;
+    --text: #243247;
+    --muted: #64748b;
+    --border: #e4e9f0;
+  }
+
   * { box-sizing: border-box; }
 
   body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    background: #f3f5f9;
-    color: #243247;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
   }
 
   header {
-    background: #173753;
+    background: var(--navy);
     color: white;
-    padding: 45px 8%;
+    padding: 24px 7% 58px;
+  }
+
+  .topbar {
+    max-width: 1200px;
+    margin: 0 auto 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #b9d2e4;
+  }
+
+  .hero {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 44px);
+    margin: 0 0 14px;
+  }
+
+  .hero p {
+    color: #bed3e3;
+    line-height: 1.6;
+  }
+
+  .search {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 25px;
+    padding: 15px 18px;
+    background: #29445d;
+    color: white;
+    border: 1px solid #4a6076;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .search::placeholder { color: #c1d1dd; }
+
+  .search:focus {
+    border-color: #8ac7ef;
   }
 
   main {
-    max-width: 1150px;
+    max-width: 1200px;
     margin: auto;
-    padding: 35px 25px;
+    padding: 38px 25px 70px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .section-title h2 {
+    font-size: 24px;
+  }
+
+  .count {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0 28px;
+  }
+
+  .filter {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 9px 15px;
+    cursor: pointer;
+    color: var(--text);
+  }
+
+  .filter.active {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
   }
 
   .grid {
     display: grid;
     grid-template-columns:
-      repeat(auto-fit, minmax(240px, 1fr));
+      repeat(auto-fill, minmax(270px, 1fr));
     gap: 20px;
   }
 
   .card {
+    display: flex;
+    flex-direction: column;
     background: white;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 4px 15px #14294008;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 24px #14294012;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .app-icon {
+    width: 55px;
+    height: 55px;
     border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 3px 12px #00000012;
+    background: #edf3f9;
+    display: grid;
+    place-items: center;
+    font-size: 27px;
   }
 
-  .card p {
-    color: #64748b;
-    line-height: 1.5;
+  .status {
+    font-size: 12px;
+    border-radius: 20px;
+    padding: 6px 10px;
+    background: #f3f4f6;
+    color: #596579;
+    white-space: nowrap;
   }
 
-  .btn {
+  .status.active {
+    color: #197047;
+    background: #e8f7ed;
+  }
+
+  .status.development {
+    color: #a56a12;
+    background: #fff4dc;
+  }
+
+  .status.testing {
+    color: #1f639a;
+    background: #e6f2ff;
+  }
+
+  .card h3 {
+    margin: 22px 0 10px;
+    font-size: 19px;
+  }
+
+  .description {
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 14px;
+    flex: 1;
+  }
+
+  .meta {
+    color: #8591a1;
+    font-size: 12px;
+    margin-top: 18px;
+  }
+
+  .open-btn {
     display: inline-block;
-    margin-top: 10px;
-    padding: 11px 18px;
-    background: #176ba0;
+    text-align: center;
+    background: var(--blue);
     color: white;
+    border-radius: 8px;
     text-decoration: none;
-    border-radius: 7px;
+    padding: 12px 16px;
+    margin-top: 19px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .open-btn:hover { background: #175c94; }
+
+  .message {
+    color: var(--muted);
+    padding: 35px 0;
+  }
+
+  footer {
+    text-align: center;
+    padding: 25px;
+    background: #e9eef4;
+    color: #788697;
+    font-size: 13px;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 22px 20px 40px; }
+    .topbar { margin-bottom: 35px; }
+    main { padding: 25px 18px 50px; }
+    .section-title h2 { font-size: 20px; }
   }
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1>Just Some Fun</h1>
-  <p>Architecture AI Tools Hub</p>
-  <p>Thư viện ứng dụng và thử nghiệm công nghệ</p>
+  <div class="topbar">
+    <div class="brand">✦ JUST SOME FUN</div>
+    <div class="subtitle">APP LIBRARY</div>
+  </div>
+
+  <div class="hero">
+    <h1>Khám phá các ứng dụng</h1>
+
+    <p>
+      Thư viện công cụ, tiện ích và thử nghiệm AI.
+      Khám phá các ứng dụng và giải pháp mới.
+    </p>
+
+    <input
+      class="search"
+      id="searchInput"
+      type="search"
+      placeholder="Tìm kiếm ứng dụng..."
+      aria-label="Tìm kiếm ứng dụng"
+    >
+  </div>
 </header>
 
 <main>
-  <h2>Danh sách ứng dụng</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Workflow Simulator</h3>
-      <p>Mô phỏng quy trình làm việc AI và n8n.</p>
-      <a class="btn"
-         href="apps/workflow-simulator/">
-         Mở ứng dụng
-      </a>
-    </div>
+  <div class="section-title">
+    <h2>Danh sách ứng dụng</h2>
+    <span class="count" id="appCount">
+      Đang tải...
+    </span>
   </div>
+
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="appGrid"></div>
+  <p class="message" id="message"></p>
 </main>
+
+<footer>
+  Just Some Fun · Developed by chachalili
+</footer>
+
+<script>
+const grid = document.getElementById("appGrid");
+const filters = document.getElementById("filters");
+const searchInput = document.getElementById("searchInput");
+const count = document.getElementById("appCount");
+const message = document.getElementById("message");
+
+const statuses = {
+  active: "Hoạt động",
+  development: "Đang phát triển",
+  testing: "Thử nghiệm"
+};
+
+let allApps = [];
+let currentCategory = "Tất cả";
+
+function makeElement(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text !== undefined) el.textContent = text;
+  return el;
+}
+
+function createCard(app) {
+  const card = makeElement("article", "card");
+
+  const top = makeElement("div", "card-header");
+  const icon = makeElement(
+    "div", "app-icon", app.icon || "📦"
+  );
+
+  const state = Object.hasOwn(statuses, app.status)
+    ? app.status : "development";
+
+  const badge = makeElement(
+    "span", "status " + state, statuses[state]
+  );
+
+  top.append(icon, badge);
+
+  const title = makeElement("h3", "", app.name);
+  const description = makeElement(
+    "p", "description", app.description || ""
+  );
+
+  const meta = makeElement(
+    "div",
+    "meta",
+    (app.category || "Khác") +
+    " · v" + (app.version || "1.0.0")
+  );
+
+  const link = makeElement(
+    "a", "open-btn", "Mở ứng dụng ↗"
+  );
+
+  link.href = app.url;
+  link.rel = "noopener noreferrer";
+
+  card.append(top, title, description, meta, link);
+  return card;
+}
+
+function render() {
+  grid.replaceChildren();
+
+  const query = searchInput.value
+    .trim().toLocaleLowerCase("vi");
+
+  const filtered = allApps.filter(app => {
+    const matchCategory =
+      currentCategory === "Tất cả" ||
+      app.category === currentCategory;
+
+    const searchable = [
+      app.name,
+      app.description,
+      app.category,
+      ...(app.keywords || [])
+    ].join(" ").toLocaleLowerCase("vi");
+
+    return matchCategory && searchable.includes(query);
+  });
+
+  count.textContent = filtered.length + " ứng dụng";
+
+  message.textContent = filtered.length
+    ? ""
+    : "Không tìm thấy ứng dụng phù hợp.";
+
+  filtered.forEach(app => {
+    grid.appendChild(createCard(app));
+  });
+}
+
+function renderFilters() {
+  filters.replaceChildren();
+
+  const categories = [
+    "Tất cả",
+    ...new Set(allApps.map(app => app.category || "Khác"))
+  ];
+
+  categories.forEach(category => {
+    const button = makeElement(
+      "button",
+      "filter" +
+        (category === currentCategory ? " active" : ""),
+      category
+    );
+
+    button.type = "button";
+
+    button.addEventListener("click", () => {
+      currentCategory = category;
+      renderFilters();
+      render();
+    });
+
+    filters.appendChild(button);
+  });
+}
+
+async function loadApps() {
+  try {
+    const response = await fetch("./apps.json", {
+      cache: "no-cache"
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data.apps)) {
+      throw new Error("Danh mục ứng dụng không hợp lệ");
+    }
+
+    allApps = data.apps.filter(app =>
+      typeof app.name === "string" &&
+      typeof app.url === "string" &&
+      /^apps\/[a-z0-9-]+\/$/.test(app.url)
+    );
+
+    renderFilters();
+    render();
+
+  } catch (error) {
+    count.textContent = "Không tải được";
+    message.textContent =
+      "Không đọc được apps.json. " +
+      "Hãy kiểm tra tên file và nội dung JSON.";
+    console.error(error);
+  }
+}
+
+searchInput.addEventListener("input", render);
+loadApps();
+</script>
 
 </body>
 </html>
